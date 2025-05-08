@@ -100,7 +100,7 @@ export const Footer = () => {
         <div className="footer-list">
           <p className="footer-list-title">Newsletter</p>
           <p className="newsletter-text">
-            You will be notified when somthing new will be appear.
+            You will be notified when something new will be appear.
           </p>
           <form action="" className="footer-form">
             <input
@@ -124,9 +124,9 @@ export const Footer = () => {
     <div className="footer-bottom">
       <div className="container">
         <p className="copyright">
-          © 2022{" "}
+          © 2024{" "}
           <a href="#" className="copyright-link">
-            vivekkakadiya
+            AbhishekJain
           </a>
           . All Rights Reserved.
         </p>

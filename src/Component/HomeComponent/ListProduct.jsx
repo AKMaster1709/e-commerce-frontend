@@ -6,18 +6,39 @@ export const ListProduct = () => {
   const[token,setToken]=useState(sessionStorage.getItem("token"));
   
   const[data,setData]=useState([]);
-  const fatchData = async () => {
+  // const fatchData = async () => {
   
-    const response = await axiosFetch({
-      "url":"product/",
-      "method":"GET",
-    });
+  //   const response = await axiosFetch({
+  //     "url":"product/",
+  //     "method":"GET",
+  //   });
     
-    // const
-    console.log(response.data);
-    setData(response.data);
+  //   // const
+  //   console.log(response.data);
+  //   setData(response.data);
+  // };
+  const fatchData = async () => {
+    try {
+      const response = await axiosFetch({
+        url: "product/",
+        method: "GET",
+      });
+  
+      if (Array.isArray(response.data)) {
+        setData(response.data);
+      } else if (response.data && Array.isArray(response.data.products)) {
+        // if the data is nested under 'products'
+        setData(response.data.products);
+      } else {
+        console.error("Unexpected response format:", response.data);
+        setData([]); // fallback to empty array
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setData([]); // fallback in case of failure
+    }
   };
-
+  
 
   
   useEffect(() => {
@@ -102,14 +123,22 @@ export const ListProduct = () => {
             </li>
           </ul>
           <ul className="grid-list">
-            {data.map((item) => 
+  {data.length === 0 ? (
+    <p>No products available.</p>
+  ) : (
+    data.map((item) => (
+      <ProductCard
+        key={item.productid}
+        id={item.productid}
+        name={item.productName}
+        description={item.description}
+        price={item.price}
+        img={item.img}
+      />
+    ))
+  )}
+</ul>
 
-               <ProductCard key={item.productid} id={item.productid} name={item.productName} description={item.description} price={item.price} img={item.img} />
-            
-            
-        
-            )}
-          </ul>
         </div>
       </section>
     </>

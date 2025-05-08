@@ -85,7 +85,7 @@ export const Header = () => {
                   Shop
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   activeClass="active"
                   className="navbar-link"
@@ -96,7 +96,7 @@ export const Header = () => {
                 >
                   Blog
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   activeClass="active"

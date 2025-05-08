@@ -19,12 +19,25 @@ export const ProductCard = (props) => {
       theme: "light",
       });
   }
-  const handalClick = (id) => {
+  const onTop = () => {
+    toast.success('Please Login First', {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
+  const handleClick = (id) => {
     navigate(`/product/${id}`);
   };
 
-  const handalCart = async () => {
+  const handleCart = async () => {
     if(sessionStorage.getItem("token")===null){
+      onTop();
       navigate("/login");
     }
     const res = await fetch("http://localhost:9090/cart/addproduct", {
@@ -69,7 +82,7 @@ export const ProductCard = (props) => {
               </button>
               <button
                 className="product-btn"
-                onClick={() => handalClick(props.id)}
+                onClick={() => handleClick(props.id)}
                 aria-label="Quick View"
               >
                 <ion-icon name="eye-outline" />
@@ -93,7 +106,7 @@ export const ProductCard = (props) => {
               Rs {props.price}
             </data>
           </div>
-          <button className="btn btn-primary" onClick={() => handalCart()}>
+          <button className="btn btn-primary" onClick={() => handleCart()}>
             Add to Cart
           </button>
         </div>

@@ -3,9 +3,13 @@ import { Header } from '../Component/Header'
 import { Footer } from '../Component/Footer'
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 export const ProductDetails = () => {
   
+  const navigate = useNavigate();
+
   const [data, setData] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const[token,setToken]=useState(sessionStorage.getItem("token"));
@@ -37,30 +41,58 @@ export const ProductDetails = () => {
       theme: "light",
       });
   }
-  const handleCart = async () => {
-console.log(quantity);
-    const res = await fetch(
-      `http://localhost:9090/cart/addproduct`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify({
+//   const handleCart = async () => {
+// console.log(quantity);
+//     const res = await fetch(
+//       `http://localhost:9090/cart/addproduct`,
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         "Authorization": "Bearer " + token
+//         },
+//         body: JSON.stringify({
          
-          productId: id,
-          quantity: quantity,
-        }),
-      }
+//           productId: id,
+//           quantity: quantity,
+//         }),
+//       }
 
-      );
-    if (res.status === 200) {
-      onToast();
-    }
+//       );
+//     if (res.status === 200) {
+//       onToast();
+//     }
       
     
+// };
+const handleCart = async () => {
+  if (!token || token === "{}") {
+    toast.warn("Please login to add items to cart", {
+      position: "top-center",
+      autoClose: 3000,
+    });
+    navigate("/login");
+    return;
+  }
+
+  console.log(quantity);
+  const res = await fetch(`http://localhost:9090/cart/addproduct`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token,
+    },
+    body: JSON.stringify({
+      productId: id,
+      quantity: quantity,
+    }),
+  });
+
+  if (res.status === 200) {
+    onToast();
+  }
 };
+
   useEffect(() => {
     window.scrollTo(0, 0) 
 

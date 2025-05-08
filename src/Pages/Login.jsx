@@ -41,7 +41,7 @@ export const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:9090/auth/singin", {
+    const res = await fetch("http://localhost:9090/auth/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export const Login = () => {
       Login
     </h4>
   </div>
-  <div className="login-box-content">
+  {/* <div className="login-box-content">
     <div className="fb-login box-shadow">
       <a
         className="d-flex flex-row align-items-center social-login-link"
@@ -111,11 +111,11 @@ export const Login = () => {
         Login with Google+
       </a>
     </div>
-  </div>
+  </div> */}
   <div className="d-flex flex-row align-items-center login-box-seperator-container">
     <div className="login-box-seperator" />
     <div className="login-box-seperator-text">
-      <p
+      {/* <p
         style={{
           marginBottom: 0,
           paddingLeft: 10,
@@ -125,10 +125,10 @@ export const Login = () => {
         }}
       >
         or
-      </p>
+      </p> */}
     </div>
     <div className="login-box-seperator" />
-  </div>
+  </div> 
   <div className="email-login" style={{ backgroundColor: "#ffffff" }}>
     <input
       type="email"
